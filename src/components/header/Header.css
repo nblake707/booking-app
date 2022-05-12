@@ -30,7 +30,7 @@
     border-radius: 20px;
 }
 
- .header-desc {
+.header-desc {
     margin: 20px 0px;
 }
 
@@ -61,5 +61,20 @@
 
 .header-icon {
     color: lightgray;
+}
 
+.header-search-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-search-input {
+    border: none;
+    outline: none;
+}
+
+.header-search-text {
+    color: lightgrey;
+    cursor: pointer;
 }

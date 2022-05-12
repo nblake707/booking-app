@@ -7,6 +7,7 @@ import {
   faStore,
   faTaxi,
   faCalendarDays,
+  faPerson,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
 
@@ -56,8 +57,13 @@ const Header = () => {
             <span className="header-search-text">Date to Date</span>
           </div>
           <div className="header-search-item">
-            <FontAwesomeIcon icon={faBed} className="header-icon" />
-            <span className="header-search-text">2 adults 2 childern 1 room</span>
+            <FontAwesomeIcon icon={faPerson} className="header-icon" />
+            <span className="header-search-text">
+              2 adults 2 childern 1 room
+            </span>
+          </div>
+          <div className="header-search-item">
+            <button className="header-btn">Search</button>
           </div>
         </div>
       </div>
