@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBed,
@@ -9,9 +9,28 @@ import {
   faCalendarDays,
   faPerson,
 } from "@fortawesome/free-solid-svg-icons";
+import { DateRange } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
 import "./Header.css";
+import { format } from "date-fns";
 
 const Header = () => {
+  const [date, setDate] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+  const [openDate, setOpenDate] = useState(false); // controls calendar visibility
+  const [options, setOptions] = useState({
+    adults: 2,
+    children: 4,
+    room: 1,
+  });
+  const [openOptions, setOpenOptions] = useState(false); // control search bar options
+
   return (
     <div className="header">
       <div className="header-container">
@@ -54,13 +73,55 @@ const Header = () => {
           </div>
           <div className="header-search-item">
             <FontAwesomeIcon icon={faCalendarDays} className="header-icon" />
-            <span className="header-search-text">Date to Date</span>
+            <span
+              onClick={() => setOpenDate(!openDate)}
+              className="header-search-text"
+            >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
+              date[0].endDate,
+              "MM/dd/yyyy"
+            )}`}</span>
+            {openDate && (
+              <DateRange
+                editableDateInputs={true}
+                onChange={(item) => setDate([item.selection])}
+                moveRangeOnFirstSelection={false}
+                ranges={date}
+                className="date"
+              />
+            )}
           </div>
           <div className="header-search-item">
             <FontAwesomeIcon icon={faPerson} className="header-icon" />
             <span className="header-search-text">
-              2 adults 2 childern 1 room
+              {`${options.adults} adults : ${options.children} children : ${options.room}`}{" "}
+              {options.room > 1 ? "rooms" : "room"}
             </span>
+            <div className="options">
+              <div className="option-item">
+                <span classname="option-text">Adult</span>
+                <div className="option-counter">
+                  <button className="option-counter-btn">-</button>
+                  <span className="option-counter-number">4</span>
+                  <button className="option-counter-btn">+</button>
+                </div>
+              </div>
+              <div className="option-item">
+                <span classname="option-text">Children</span>
+                <div className="option-counter">
+                  <button className="option-counter-btn">-</button>
+                  <span className="option-counter-number">4</span>
+                  <button className="option-counter-btn">+</button>
+                </div>
+              </div>
+              <div className="option-item">
+                <span classname="option-text">Rooms</span>
+                <div className="option-counter">
+                  <button className="option-counter-btn">-</button>
+                  <span className="option-counter-number">4</span>
+                  <button className="option-counter-btn">+</button>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="header-search-item">
             <button className="header-btn">Search</button>
